@@ -5,7 +5,7 @@ sendAnonymousUsage = true
 
 [docker]
   endpoint = "unix:///var/run/docker.sock"
-  exposedByDefault = false
+  exposedByDefault = true
 
 # enabling api is not absolutely necessary, it is needed only if you need dashboard.
 [api]

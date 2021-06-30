@@ -8,18 +8,26 @@ services:
       - ${PWD}/traefik.toml:/etc/traefik/traefik.toml
     ports:
       - 80:80
-      - 8080:8080 
+      - 15050:8080 
 
   nginx:
     image: nginx:alpine
     volumes:
       - ${PWD}/example.com-index.html:/usr/share/nginx/html/index.html
+    labels:
+      - traefik.frontend.rule=Host:nginx.example1.localhost
+      - traefik.port=80
+      - traefik.enable=true
 
   apache:
     image: httpd:alpine
     volumes:
       - ${PWD}/example.net-index.html:/usr/local/apache2/htdocs/index.html
-
+    labels:
+      - traefik.frontend.rule=Host:apache.example1.localhost
+      - traefik.port=80
+      - traefik.enable=true
+  
   tomcat:
     image: tomcat:alpine
     volumes:
