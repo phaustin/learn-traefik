@@ -15,7 +15,7 @@ services:
     volumes:
       - ${PWD}/example.com-index.html:/usr/share/nginx/html/index.html
     labels:
-      - traefik.frontend.rule=Host:nginx.example1.localhost
+      - "traefik.frontend.rule=Host:nginx.example1.localhost;PathPrefixStrip:/test"
       - traefik.port=80
       - traefik.enable=true
 
