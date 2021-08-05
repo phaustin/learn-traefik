@@ -28,7 +28,7 @@ entrypoint = "dashboard"
 
 [acme]
 acmeLogging = true
-email = "kamranazeem@gmail.com"
+email = "paustin@eoas.ubc.ca"
 storage = "/acme.json"
 
 # CA server to use.
@@ -42,5 +42,5 @@ entryPoint = "https"
   entryPoint = "http"
 
 [[acme.domains]]
-  main = "multitool.wbitt.com"
+  main = "eoastest5.xyz"
 
