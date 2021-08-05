@@ -45,3 +45,7 @@ entryPoint = "https"
 OnHostRule = true
   [acme.httpChallenge]
   entryPoint = "http"
+
+[frontends.whoami8]
+[frontends.whoami8.routes.whoami_1]
+  rule = "Host:eoastest5.xyz;Path:/whoamixxx"
