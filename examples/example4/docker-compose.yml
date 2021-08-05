@@ -1,34 +1,25 @@
-version: "3"
+version: '3'
+
 services:
 
   traefik:
-    build: traefik
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
-      - ${PWD}/traefik/traefik.toml:/etc/traefik/traefik.toml
-      - ${PWD}/traefik/acme.json:/acme.json
+    image: traefik:v1.7.3
+    command: --docker --docker.domain=eoastest5.xyz
     ports:
       - 80:80
       - 443:443
-      - 8080:8080
-      
-  nginx:
-    image: nginx:alpine
-    expose:
-      - "80"
+    networks:
+      - proxy
     volumes:
-      - ${PWD}/example.com-index.html:/usr/share/nginx/html/index.html
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ${PWD}/traefik/traefik.toml:/traefik.toml
+      - ${PWD}/traefik/acme.json:/acme.json
     labels:
-      - traefik.enable=true
-      - traefik.port=80
-      # wbitt nginx test web server on AWS:
-      - traefik.frontend.rule=Host:nginx.eoastest5.xyz
+      - "traefik.frontend.rule=Host:traefik.eoastest5.xyz"
+      - "traefik.port=8080"
+    container_name: traefik
+    restart: always
 
-  apache:
-    image: httpd:alpine
-    volumes:
-      - ${PWD}/example.net-index.html:/usr/local/apache2/htdocs/index.html
-    labels:
-      - traefik.frontend.rule=Host:apache.eoastest5.xyz
-      - traefik.port=80
-      - traefik.enable=true
+networks:
+  proxy:
+    external: true
