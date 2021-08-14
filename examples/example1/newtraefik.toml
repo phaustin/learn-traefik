@@ -1,0 +1,35 @@
+defaultEntryPoints = ["http"]
+
+[api]
+dashboard = true
+
+[entryPoints]
+  [entryPoints.http]
+  address = ":80"
+
+  [entryPoints.authenticate]
+  address = ":8081"
+  [entryPoints.authenticate.auth.basic]
+  users = ["phil:$apr1$T1qLNvVo$jVm15GW/mDPSa/nzxCil/1"]
+
+[file]
+  [backends]
+    [backends.backend1]
+      [backends.backend1.servers.server1]
+      url = "http://127.0.0.1:8081"
+
+    [backends.backend2]
+      [backends.backend2.servers.server1]
+      url = "http://127.0.0.1:8080"
+
+  [frontends]
+    [frontends.frontend1]
+      backend = "backend1"
+      [frontends.frontend1.routes.test_1]
+      rule = "PathPrefix:/traefik"
+    [frontends.frontend2]
+      backend = "backend2"
+      entrypoints=["authenticate"]
+      [frontends.frontend2.routes.test_1]
+      rule = "PathPrefixStrip:/traefik"
+      

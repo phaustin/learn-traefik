@@ -10,13 +10,6 @@ sendAnonymousUsage = true
   watch = true
   domain = "localhost"
 
-#Enable Traefik Dashboard on port 8080
-#with basic authentication method
-#phil and doitnow
-[web]
-address = ":8080"
-[web.auth.basic]
-users = ["phil:$apr1$T1qLNvVo$jVm15GW/mDPSa/nzxCil/1"]
 
 #Enable retry sending a request if the network error
 [retry]
@@ -24,15 +17,15 @@ users = ["phil:$apr1$T1qLNvVo$jVm15GW/mDPSa/nzxCil/1"]
 # enabling api is not absolutely necessary, it is needed only if you need dashboard.
 [api]
 dashboard = true
-entrypoint = "dashboard"
 
 [entryPoints]
   [entryPoints.http]
   address = ":80"
 
-  [entryPoints.dashboard]
-  address = ":8080"
-
+  [entryPoints.authenticate]
+  address = ":8081"
+  [entryPoints.authenticate.auth.basic]
+  users = ["phil:$apr1$T1qLNvVo$jVm15GW/mDPSa/nzxCil/1"]
 
 [file]
 filename = "rules.toml"
