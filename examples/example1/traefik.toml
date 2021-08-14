@@ -1,5 +1,6 @@
+debug = true
+logLevel = "DEBUG" #DEBUG, INFO, WARN, ERROR, FATAL
 defaultEntryPoints = ["http"]
-logLevel = "INFO"
 
 sendAnonymousUsage = true
 
@@ -7,6 +8,7 @@ sendAnonymousUsage = true
   endpoint = "unix:///var/run/docker.sock"
   exposedByDefault = false
   watch = true
+  domain = "localhost"
 
 #Enable Traefik Dashboard on port 8080
 #with basic authentication method
@@ -24,10 +26,17 @@ users = ["phil:$apr1$T1qLNvVo$jVm15GW/mDPSa/nzxCil/1"]
 dashboard = true
 entrypoint = "dashboard"
 
-
 [entryPoints]
   [entryPoints.http]
   address = ":80"
 
   [entryPoints.dashboard]
   address = ":8080"
+
+
+[file]
+filename = "rules.toml"
+watch = true
+
+
+
