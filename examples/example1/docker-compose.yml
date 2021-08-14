@@ -2,11 +2,11 @@ version: "3"
 services:
 
   traefik:
-    image: traefik:alpine
+    image: traefik:1.7
     domainname: localhost
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
-      - ${PWD}/mytraefik.toml:/etc/traefik/traefik.toml
+      - ${PWD}/newtraefik.toml:/etc/traefik/traefik.toml
     ports:
       - 80:80
 
@@ -19,21 +19,3 @@ services:
       - traefik.port=80
       - traefik.enable=true
 
-  apache:
-    image: httpd:alpine
-    volumes:
-      - ${PWD}/example.net-index.html:/usr/local/apache2/htdocs/index.html
-    labels:
-      - traefik.frontend.rule=Host:apache.example1.localhost
-      - traefik.port=80
-      - traefik.enable=true
-  
-  tomcat:
-    image: tomcat:alpine
-    volumes:
-      - ${PWD}/sample.war:/usr/share/tomcat/webapps/sample.war
-
-  mysqldb:
-    image: mysql
-    environment:
-      - MYSQL_ROOT_PASSWORD="SuperSecretPassword"

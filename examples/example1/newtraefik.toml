@@ -1,4 +1,8 @@
+logLevel = "INFO" #DEBUG, INFO, WARN, ERROR, FATAL
+
 defaultEntryPoints = ["http"]
+
+[docker]
 
 [api]
 dashboard = true
