@@ -5,7 +5,19 @@ sendAnonymousUsage = true
 
 [docker]
   endpoint = "unix:///var/run/docker.sock"
-  exposedByDefault = true
+  exposedByDefault = false
+  watch = true
+
+#Enable Traefik Dashboard on port 8080
+#with basic authentication method
+#phil and doitnow
+[web]
+address = ":8080"
+[web.auth.basic]
+users = ["phil:$apr1$T1qLNvVo$jVm15GW/mDPSa/nzxCil/1"]
+
+#Enable retry sending a request if the network error
+[retry]
 
 # enabling api is not absolutely necessary, it is needed only if you need dashboard.
 [api]
